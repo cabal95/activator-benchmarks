@@ -11,10 +11,47 @@ This is a single repo and project to keep a record of these performance numbers 
 Since I have access to an ARM64 laptop, I have numbers for both x64 and ARM64.
 This data should not be used to say "ARM is better than Intel" or vice versa.
 The machines are very different from each other and purchased in different years.
+These results are meant purely for seeing the performance differences between the different runtimes and methods of creating/calling objects within the same architecture.
+
+BenchmarkDotNet doesn't recognize the ARM64 hardware, but for the record it was a late 2024 Microsoft Surface 7 laptop with a Snapdragon X Elite X1E-80-100 CPU.
+
+For the record, there are 1,000,000,000 nano seconds in a second.
 
 ## Empty Constructor
 
 These tests create a new object using a constructor that doesn't take any parameters.
+
+### X64
+
+```
+
+BenchmarkDotNet v0.14.0, Windows 11 (10.0.26100.4061)
+11th Gen Intel Core i7-11800H 2.30GHz, 1 CPU, 16 logical and 8 physical cores
+.NET SDK 9.0.204
+  [Host]     : .NET 9.0.5 (9.0.525.21509), X64 RyuJIT AVX-512F+CD+BW+DQ+VL+VBMI
+  Job-ZZWBDH : .NET 6.0.36 (6.0.3624.51421), X64 RyuJIT AVX2
+  Job-KSYKED : .NET 8.0.16 (8.0.1625.21506), X64 RyuJIT AVX-512F+CD+BW+DQ+VL+VBMI
+  Job-KHFHGX : .NET 9.0.5 (9.0.525.21509), X64 RyuJIT AVX-512F+CD+BW+DQ+VL+VBMI
+  Job-LYLTTW : .NET Framework 4.8.1 (4.8.9310.0), X64 RyuJIT VectorSize=256
+
+
+```
+| Method                 | Runtime              | Mean       | Error     | StdDev    | Ratio | RatioSD |
+|----------------------- |--------------------- |-----------:|----------:|----------:|------:|--------:|
+| DirectCall             | .NET 6.0             |   2.464 ns | 0.0910 ns | 0.0807 ns |  0.68 |    0.03 |
+| DirectCall             | .NET 8.0             |   3.640 ns | 0.0904 ns | 0.0846 ns |  1.01 |    0.03 |
+| DirectCall             | .NET 9.0             |   3.611 ns | 0.1046 ns | 0.0979 ns |  1.00 |    0.04 |
+| DirectCall             | .NET Framework 4.7.2 |   1.277 ns | 0.0907 ns | 0.0848 ns |  0.35 |    0.02 |
+|                        |                      |            |           |           |       |         |
+| ActivatorCall          | .NET 6.0             |   8.286 ns | 0.2165 ns | 0.2026 ns |  0.85 |    0.03 |
+| ActivatorCall          | .NET 8.0             |   9.153 ns | 0.2119 ns | 0.1982 ns |  0.94 |    0.03 |
+| ActivatorCall          | .NET 9.0             |   9.784 ns | 0.2542 ns | 0.2720 ns |  1.00 |    0.04 |
+| ActivatorCall          | .NET Framework 4.7.2 |  37.438 ns | 0.7344 ns | 0.6869 ns |  3.83 |    0.13 |
+|                        |                      |            |           |           |       |         |
+| ActivatorUtilitiesCall | .NET 6.0             | 226.314 ns | 3.2100 ns | 3.0026 ns |  6.80 |    0.13 |
+| ActivatorUtilitiesCall | .NET 8.0             |  34.776 ns | 0.6751 ns | 0.6315 ns |  1.04 |    0.02 |
+| ActivatorUtilitiesCall | .NET 9.0             |  33.293 ns | 0.5533 ns | 0.5176 ns |  1.00 |    0.02 |
+| ActivatorUtilitiesCall | .NET Framework 4.7.2 | 455.264 ns | 3.5444 ns | 2.7673 ns | 13.68 |    0.22 |
 
 ### ARM64
 
@@ -53,6 +90,38 @@ Unknown processor
 These tests create a new object that take a transient object as the only constructor parameter.
 This means a two new objects are created.
 
+### X64
+
+```
+
+BenchmarkDotNet v0.14.0, Windows 11 (10.0.26100.4061)
+11th Gen Intel Core i7-11800H 2.30GHz, 1 CPU, 16 logical and 8 physical cores
+.NET SDK 9.0.204
+  [Host]     : .NET 9.0.5 (9.0.525.21509), X64 RyuJIT AVX-512F+CD+BW+DQ+VL+VBMI
+  Job-ZZWBDH : .NET 6.0.36 (6.0.3624.51421), X64 RyuJIT AVX2
+  Job-KSYKED : .NET 8.0.16 (8.0.1625.21506), X64 RyuJIT AVX-512F+CD+BW+DQ+VL+VBMI
+  Job-KHFHGX : .NET 9.0.5 (9.0.525.21509), X64 RyuJIT AVX-512F+CD+BW+DQ+VL+VBMI
+  Job-LYLTTW : .NET Framework 4.8.1 (4.8.9310.0), X64 RyuJIT VectorSize=256
+
+
+```
+| Method                 | Runtime              | Mean         | Error      | StdDev     | Ratio | RatioSD |
+|----------------------- |--------------------- |-------------:|-----------:|-----------:|------:|--------:|
+| DirectCall             | .NET 6.0             |    11.472 ns |  0.2056 ns |  0.1923 ns |  1.65 |    0.06 |
+| DirectCall             | .NET 8.0             |     6.908 ns |  0.2084 ns |  0.2481 ns |  0.99 |    0.05 |
+| DirectCall             | .NET 9.0             |     6.980 ns |  0.2099 ns |  0.2246 ns |  1.00 |    0.04 |
+| DirectCall             | .NET Framework 4.7.2 |     4.837 ns |  0.1592 ns |  0.1704 ns |  0.69 |    0.03 |
+|                        |                      |              |            |            |       |         |
+| ActivatorCall          | .NET 6.0             |   300.622 ns |  6.0400 ns |  6.2027 ns |  1.87 |    0.05 |
+| ActivatorCall          | .NET 8.0             |   163.778 ns |  3.2532 ns |  3.1950 ns |  1.02 |    0.03 |
+| ActivatorCall          | .NET 9.0             |   161.011 ns |  3.2735 ns |  3.0620 ns |  1.00 |    0.03 |
+| ActivatorCall          | .NET Framework 4.7.2 |   504.495 ns |  7.5593 ns |  7.0710 ns |  3.13 |    0.07 |
+|                        |                      |              |            |            |       |         |
+| ActivatorUtilitiesCall | .NET 6.0             |   491.299 ns |  8.7363 ns |  8.1720 ns |  8.09 |    0.20 |
+| ActivatorUtilitiesCall | .NET 8.0             |    63.511 ns |  1.3318 ns |  1.4250 ns |  1.05 |    0.03 |
+| ActivatorUtilitiesCall | .NET 9.0             |    60.728 ns |  1.2464 ns |  1.1659 ns |  1.00 |    0.03 |
+| ActivatorUtilitiesCall | .NET Framework 4.7.2 | 1,148.655 ns | 21.5436 ns | 21.1587 ns | 18.92 |    0.49 |
+
 ### ARM64
 
 ```
@@ -89,6 +158,33 @@ Unknown processor
 
 These benchmarks test the performance of creating a scope and creating a scope with a scoped parameter passed to the constructor.
 
+### X64
+
+```
+
+BenchmarkDotNet v0.14.0, Windows 11 (10.0.26100.4061)
+11th Gen Intel Core i7-11800H 2.30GHz, 1 CPU, 16 logical and 8 physical cores
+.NET SDK 9.0.204
+  [Host]     : .NET 9.0.5 (9.0.525.21509), X64 RyuJIT AVX-512F+CD+BW+DQ+VL+VBMI
+  Job-ZZWBDH : .NET 6.0.36 (6.0.3624.51421), X64 RyuJIT AVX2
+  Job-KSYKED : .NET 8.0.16 (8.0.1625.21506), X64 RyuJIT AVX-512F+CD+BW+DQ+VL+VBMI
+  Job-KHFHGX : .NET 9.0.5 (9.0.525.21509), X64 RyuJIT AVX-512F+CD+BW+DQ+VL+VBMI
+  Job-LYLTTW : .NET Framework 4.8.1 (4.8.9310.0), X64 RyuJIT VectorSize=256
+
+
+```
+| Method                 | Runtime              | Mean        | Error     | StdDev    | Ratio | RatioSD |
+|----------------------- |--------------------- |------------:|----------:|----------:|------:|--------:|
+| CreateScope            | .NET 6.0             |    63.24 ns |  1.129 ns |  1.056 ns |  1.65 |    0.05 |
+| CreateScope            | .NET 8.0             |    38.47 ns |  0.751 ns |  0.702 ns |  1.00 |    0.03 |
+| CreateScope            | .NET 9.0             |    38.34 ns |  0.789 ns |  0.939 ns |  1.00 |    0.03 |
+| CreateScope            | .NET Framework 4.7.2 |    88.67 ns |  1.414 ns |  1.254 ns |  2.31 |    0.06 |
+|                        |                      |             |           |           |       |         |
+| ActivatorUtilitiesCall | .NET 6.0             |   578.22 ns |  9.204 ns |  8.610 ns |  5.22 |    0.11 |
+| ActivatorUtilitiesCall | .NET 8.0             |   112.70 ns |  2.030 ns |  1.899 ns |  1.02 |    0.02 |
+| ActivatorUtilitiesCall | .NET 9.0             |   110.83 ns |  1.983 ns |  1.855 ns |  1.00 |    0.02 |
+| ActivatorUtilitiesCall | .NET Framework 4.7.2 | 1,294.44 ns | 20.845 ns | 19.498 ns | 11.68 |    0.26 |
+
 ### ARM64
 
 ```
@@ -120,6 +216,38 @@ Unknown processor
 
 These tests create a new object that take a singleton object as the only constructor parameter.
 Only a single new object is created and is passed a pre-existing object that is shared.
+
+### X64
+
+```
+
+BenchmarkDotNet v0.14.0, Windows 11 (10.0.26100.4061)
+11th Gen Intel Core i7-11800H 2.30GHz, 1 CPU, 16 logical and 8 physical cores
+.NET SDK 9.0.204
+  [Host]     : .NET 9.0.5 (9.0.525.21509), X64 RyuJIT AVX-512F+CD+BW+DQ+VL+VBMI
+  Job-ZZWBDH : .NET 6.0.36 (6.0.3624.51421), X64 RyuJIT AVX2
+  Job-KSYKED : .NET 8.0.16 (8.0.1625.21506), X64 RyuJIT AVX-512F+CD+BW+DQ+VL+VBMI
+  Job-KHFHGX : .NET 9.0.5 (9.0.525.21509), X64 RyuJIT AVX-512F+CD+BW+DQ+VL+VBMI
+  Job-LYLTTW : .NET Framework 4.8.1 (4.8.9310.0), X64 RyuJIT VectorSize=256
+
+
+```
+| Method                 | Runtime              | Mean         | Error      | StdDev     | Ratio | RatioSD |
+|----------------------- |--------------------- |-------------:|-----------:|-----------:|------:|--------:|
+| DirectCall             | .NET 6.0             |     4.892 ns |  0.0845 ns |  0.0749 ns |  1.07 |    0.05 |
+| DirectCall             | .NET 8.0             |     4.675 ns |  0.1568 ns |  0.1540 ns |  1.02 |    0.05 |
+| DirectCall             | .NET 9.0             |     4.598 ns |  0.1634 ns |  0.2007 ns |  1.00 |    0.06 |
+| DirectCall             | .NET Framework 4.7.2 |     2.195 ns |  0.1113 ns |  0.1041 ns |  0.48 |    0.03 |
+|                        |                      |              |            |            |       |         |
+| ActivatorCall          | .NET 6.0             |   300.654 ns |  5.9874 ns |  6.4064 ns |  1.91 |    0.05 |
+| ActivatorCall          | .NET 8.0             |   160.411 ns |  3.1758 ns |  2.9707 ns |  1.02 |    0.02 |
+| ActivatorCall          | .NET 9.0             |   157.310 ns |  2.3840 ns |  2.2300 ns |  1.00 |    0.02 |
+| ActivatorCall          | .NET Framework 4.7.2 |   501.914 ns |  9.1399 ns |  8.5494 ns |  3.19 |    0.07 |
+|                        |                      |              |            |            |       |         |
+| ActivatorUtilitiesCall | .NET 6.0             |   476.253 ns |  7.1240 ns |  6.6638 ns |  7.97 |    0.16 |
+| ActivatorUtilitiesCall | .NET 8.0             |    61.397 ns |  0.9035 ns |  0.8452 ns |  1.03 |    0.02 |
+| ActivatorUtilitiesCall | .NET 9.0             |    59.780 ns |  1.0054 ns |  0.9405 ns |  1.00 |    0.02 |
+| ActivatorUtilitiesCall | .NET Framework 4.7.2 | 1,126.346 ns | 15.1496 ns | 14.1709 ns | 18.85 |    0.37 |
 
 ### ARM64
 
@@ -159,6 +287,38 @@ These calls test how fast method calls that perform a simple `Math.Pow(x,y)` cal
 The DirectCall is simply calling the method directly.
 The IndirectCall uses a `Func<double, double, double>` and assigns `Math.Pow` to it.
 The LambdaCall uses a dynamic Expression that calls `Math.Pow`, the expression is compiled once into a delegate and reused.
+
+### X64
+
+```
+
+BenchmarkDotNet v0.14.0, Windows 11 (10.0.26100.4061)
+11th Gen Intel Core i7-11800H 2.30GHz, 1 CPU, 16 logical and 8 physical cores
+.NET SDK 9.0.204
+  [Host]     : .NET 9.0.5 (9.0.525.21509), X64 RyuJIT AVX-512F+CD+BW+DQ+VL+VBMI
+  Job-ZZWBDH : .NET 6.0.36 (6.0.3624.51421), X64 RyuJIT AVX2
+  Job-KSYKED : .NET 8.0.16 (8.0.1625.21506), X64 RyuJIT AVX-512F+CD+BW+DQ+VL+VBMI
+  Job-KHFHGX : .NET 9.0.5 (9.0.525.21509), X64 RyuJIT AVX-512F+CD+BW+DQ+VL+VBMI
+  Job-LYLTTW : .NET Framework 4.8.1 (4.8.9310.0), X64 RyuJIT VectorSize=256
+
+
+```
+| Method       | Runtime              | Mean     | Error    | StdDev   | Ratio | RatioSD |
+|------------- |--------------------- |---------:|---------:|---------:|------:|--------:|
+| DirectCall   | .NET 6.0             | 13.76 ns | 0.226 ns | 0.212 ns |  1.09 |    0.02 |
+| DirectCall   | .NET 8.0             | 12.87 ns | 0.284 ns | 0.279 ns |  1.02 |    0.02 |
+| DirectCall   | .NET 9.0             | 12.65 ns | 0.172 ns | 0.160 ns |  1.00 |    0.02 |
+| DirectCall   | .NET Framework 4.7.2 | 22.50 ns | 0.272 ns | 0.241 ns |  1.78 |    0.03 |
+|              |                      |          |          |          |       |         |
+| IndirectCall | .NET 6.0             | 13.50 ns | 0.239 ns | 0.212 ns |  1.04 |    0.02 |
+| IndirectCall | .NET 8.0             | 13.31 ns | 0.194 ns | 0.182 ns |  1.03 |    0.02 |
+| IndirectCall | .NET 9.0             | 12.97 ns | 0.181 ns | 0.160 ns |  1.00 |    0.02 |
+| IndirectCall | .NET Framework 4.7.2 | 23.61 ns | 0.425 ns | 0.398 ns |  1.82 |    0.04 |
+|              |                      |          |          |          |       |         |
+| LambdaCall   | .NET 6.0             | 13.33 ns | 0.230 ns | 0.215 ns |  1.04 |    0.02 |
+| LambdaCall   | .NET 8.0             | 13.19 ns | 0.208 ns | 0.195 ns |  1.03 |    0.02 |
+| LambdaCall   | .NET 9.0             | 12.83 ns | 0.146 ns | 0.136 ns |  1.00 |    0.01 |
+| LambdaCall   | .NET Framework 4.7.2 | 23.66 ns | 0.292 ns | 0.273 ns |  1.84 |    0.03 |
 
 ### ARM64
 
