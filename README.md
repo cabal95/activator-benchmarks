@@ -24,27 +24,29 @@ BenchmarkDotNet v0.14.0, Windows 11 (10.0.26100.4061)
 Unknown processor
 .NET SDK 9.0.300
   [Host]     : .NET 9.0.5 (9.0.525.21509), Arm64 RyuJIT AdvSIMD
-  Job-PBOPKS : .NET 6.0.36 (6.0.3624.51421), Arm64 RyuJIT AdvSIMD
-  Job-YNREAM : .NET 8.0.16 (8.0.1625.21506), Arm64 RyuJIT AdvSIMD
-  Job-KFSMLR : .NET 9.0.5 (9.0.525.21509), Arm64 RyuJIT AdvSIMD
-  Job-QIJDWO : .NET Framework 4.8.1 (4.8.9310.0), Arm64 RyuJIT
+  Job-PDEFRX : .NET 6.0.36 (6.0.3624.51421), Arm64 RyuJIT AdvSIMD
+  Job-VFMIOD : .NET 8.0.16 (8.0.1625.21506), Arm64 RyuJIT AdvSIMD
+  Job-GWWNIA : .NET 9.0.5 (9.0.525.21509), Arm64 RyuJIT AdvSIMD
+  Job-DPTFUX : .NET Framework 4.8.1 (4.8.9310.0), Arm64 RyuJIT
 
 
 ```
-| Method                 | Runtime              | Mean       | Error     | StdDev    | Ratio  | RatioSD |
-|----------------------- |--------------------- |-----------:|----------:|----------:|-------:|--------:|
-| DirectCall             | .NET 6.0             |   1.455 ns | 0.0762 ns | 0.0815 ns |   1.22 |    0.07 |
-| ActivatorCall          | .NET 6.0             |   7.000 ns | 0.0868 ns | 0.0812 ns |   5.88 |    0.08 |
-| ActivatorUtilitiesCall | .NET 6.0             | 160.145 ns | 0.6307 ns | 0.5899 ns | 134.46 |    1.22 |
-| DirectCall             | .NET 8.0             |   1.198 ns | 0.0194 ns | 0.0172 ns |   1.01 |    0.02 |
-| ActivatorCall          | .NET 8.0             |   4.383 ns | 0.0263 ns | 0.0233 ns |   3.68 |    0.04 |
-| ActivatorUtilitiesCall | .NET 8.0             |  30.345 ns | 0.1159 ns | 0.0968 ns |  25.48 |    0.23 |
-| DirectCall             | .NET 9.0             |   1.191 ns | 0.0125 ns | 0.0104 ns |   1.00 |    0.01 |
-| ActivatorCall          | .NET 9.0             |   5.083 ns | 0.0195 ns | 0.0183 ns |   4.27 |    0.04 |
-| ActivatorUtilitiesCall | .NET 9.0             |  51.761 ns | 0.1537 ns | 0.1437 ns |  43.46 |    0.38 |
-| DirectCall             | .NET Framework 4.7.2 |   1.216 ns | 0.0604 ns | 0.0535 ns |   1.02 |    0.04 |
-| ActivatorCall          | .NET Framework 4.7.2 |  35.127 ns | 0.1946 ns | 0.1820 ns |  29.49 |    0.29 |
-| ActivatorUtilitiesCall | .NET Framework 4.7.2 | 262.253 ns | 1.0598 ns | 0.9395 ns | 220.20 |    1.99 |
+| Method                 | Runtime              | Mean       | Error     | StdDev    | Ratio | RatioSD |
+|----------------------- |--------------------- |-----------:|----------:|----------:|------:|--------:|
+| DirectCall             | .NET 6.0             |   1.520 ns | 0.0373 ns | 0.0331 ns |  1.24 |    0.03 |
+| DirectCall             | .NET 8.0             |   1.240 ns | 0.0198 ns | 0.0165 ns |  1.01 |    0.02 |
+| DirectCall             | .NET 9.0             |   1.229 ns | 0.0197 ns | 0.0164 ns |  1.00 |    0.02 |
+| DirectCall             | .NET Framework 4.7.2 |   1.322 ns | 0.0233 ns | 0.0218 ns |  1.08 |    0.02 |
+|                        |                      |            |           |           |       |         |
+| ActivatorCall          | .NET 6.0             |   7.126 ns | 0.1099 ns | 0.1028 ns |  1.46 |    0.04 |
+| ActivatorCall          | .NET 8.0             |   4.304 ns | 0.0599 ns | 0.0560 ns |  0.88 |    0.03 |
+| ActivatorCall          | .NET 9.0             |   4.892 ns | 0.1429 ns | 0.1336 ns |  1.00 |    0.04 |
+| ActivatorCall          | .NET Framework 4.7.2 |  35.633 ns | 0.3296 ns | 0.3083 ns |  7.29 |    0.20 |
+|                        |                      |            |           |           |       |         |
+| ActivatorUtilitiesCall | .NET 6.0             | 189.976 ns | 1.3685 ns | 1.2132 ns |  6.79 |    0.04 |
+| ActivatorUtilitiesCall | .NET 8.0             |  32.716 ns | 0.1520 ns | 0.1347 ns |  1.17 |    0.01 |
+| ActivatorUtilitiesCall | .NET 9.0             |  27.962 ns | 0.0873 ns | 0.0682 ns |  1.00 |    0.00 |
+| ActivatorUtilitiesCall | .NET Framework 4.7.2 | 258.214 ns | 1.2162 ns | 0.9495 ns |  9.23 |    0.04 |
 
 ## Transient Parameters
 
@@ -59,27 +61,29 @@ BenchmarkDotNet v0.14.0, Windows 11 (10.0.26100.4061)
 Unknown processor
 .NET SDK 9.0.300
   [Host]     : .NET 9.0.5 (9.0.525.21509), Arm64 RyuJIT AdvSIMD
-  Job-PBOPKS : .NET 6.0.36 (6.0.3624.51421), Arm64 RyuJIT AdvSIMD
-  Job-YNREAM : .NET 8.0.16 (8.0.1625.21506), Arm64 RyuJIT AdvSIMD
-  Job-KFSMLR : .NET 9.0.5 (9.0.525.21509), Arm64 RyuJIT AdvSIMD
-  Job-QIJDWO : .NET Framework 4.8.1 (4.8.9310.0), Arm64 RyuJIT
+  Job-QGUIPM : .NET 6.0.36 (6.0.3624.51421), Arm64 RyuJIT AdvSIMD
+  Job-SGCJLH : .NET 8.0.16 (8.0.1625.21506), Arm64 RyuJIT AdvSIMD
+  Job-IOUUGT : .NET 9.0.5 (9.0.525.21509), Arm64 RyuJIT AdvSIMD
+  Job-LHBMCR : .NET Framework 4.8.1 (4.8.9310.0), Arm64 RyuJIT
 
 
 ```
-| Method                 | Runtime              | Mean       | Error     | StdDev    | Ratio  | RatioSD |
-|----------------------- |--------------------- |-----------:|----------:|----------:|-------:|--------:|
-| DirectCall             | .NET 6.0             |   4.192 ns | 0.0621 ns | 0.0581 ns |   1.02 |    0.02 |
-| ActivatorCall          | .NET 6.0             | 209.911 ns | 1.1013 ns | 0.9763 ns |  51.15 |    0.58 |
-| ActivatorUtilitiesCall | .NET 6.0             | 323.165 ns | 1.4342 ns | 1.3415 ns |  78.74 |    0.88 |
-| DirectCall             | .NET 8.0             |   4.104 ns | 0.0390 ns | 0.0365 ns |   1.00 |    0.01 |
-| ActivatorCall          | .NET 8.0             | 108.640 ns | 0.2565 ns | 0.2273 ns |  26.47 |    0.28 |
-| ActivatorUtilitiesCall | .NET 8.0             |  56.720 ns | 0.1873 ns | 0.1564 ns |  13.82 |    0.15 |
-| DirectCall             | .NET 9.0             |   4.105 ns | 0.0476 ns | 0.0445 ns |   1.00 |    0.01 |
-| ActivatorCall          | .NET 9.0             | 113.803 ns | 0.2815 ns | 0.2496 ns |  27.73 |    0.29 |
-| ActivatorUtilitiesCall | .NET 9.0             |  55.097 ns | 0.2844 ns | 0.2660 ns |  13.43 |    0.15 |
-| DirectCall             | .NET Framework 4.7.2 |   4.136 ns | 0.0392 ns | 0.0347 ns |   1.01 |    0.01 |
-| ActivatorCall          | .NET Framework 4.7.2 | 332.083 ns | 1.9958 ns | 1.7692 ns |  80.92 |    0.94 |
-| ActivatorUtilitiesCall | .NET Framework 4.7.2 | 666.224 ns | 3.0643 ns | 2.8663 ns | 162.33 |    1.82 |
+| Method                 | Runtime              | Mean       | Error     | StdDev    | Ratio | RatioSD |
+|----------------------- |--------------------- |-----------:|----------:|----------:|------:|--------:|
+| DirectCall             | .NET 6.0             |   4.462 ns | 0.0418 ns | 0.0391 ns |  1.04 |    0.02 |
+| DirectCall             | .NET 8.0             |   4.288 ns | 0.0469 ns | 0.0416 ns |  1.00 |    0.02 |
+| DirectCall             | .NET 9.0             |   4.286 ns | 0.0804 ns | 0.0713 ns |  1.00 |    0.02 |
+| DirectCall             | .NET Framework 4.7.2 |   4.485 ns | 0.0715 ns | 0.0634 ns |  1.05 |    0.02 |
+|                        |                      |            |           |           |       |         |
+| ActivatorCall          | .NET 6.0             | 212.166 ns | 2.8971 ns | 2.5682 ns |  2.04 |    0.03 |
+| ActivatorCall          | .NET 8.0             | 106.326 ns | 0.7417 ns | 0.6575 ns |  1.02 |    0.01 |
+| ActivatorCall          | .NET 9.0             | 104.175 ns | 0.9313 ns | 0.8712 ns |  1.00 |    0.01 |
+| ActivatorCall          | .NET Framework 4.7.2 | 325.685 ns | 3.5074 ns | 3.2808 ns |  3.13 |    0.04 |
+|                        |                      |            |           |           |       |         |
+| ActivatorUtilitiesCall | .NET 6.0             | 333.580 ns | 2.9662 ns | 2.7746 ns |  5.95 |    0.07 |
+| ActivatorUtilitiesCall | .NET 8.0             |  57.071 ns | 0.5672 ns | 0.5306 ns |  1.02 |    0.01 |
+| ActivatorUtilitiesCall | .NET 9.0             |  56.025 ns | 0.5484 ns | 0.4862 ns |  1.00 |    0.01 |
+| ActivatorUtilitiesCall | .NET Framework 4.7.2 | 664.234 ns | 4.5363 ns | 4.0213 ns | 11.86 |    0.12 |
 
 ## Scoped Parameters
 
@@ -125,27 +129,29 @@ BenchmarkDotNet v0.14.0, Windows 11 (10.0.26100.4061)
 Unknown processor
 .NET SDK 9.0.300
   [Host]     : .NET 9.0.5 (9.0.525.21509), Arm64 RyuJIT AdvSIMD
-  Job-PBOPKS : .NET 6.0.36 (6.0.3624.51421), Arm64 RyuJIT AdvSIMD
-  Job-YNREAM : .NET 8.0.16 (8.0.1625.21506), Arm64 RyuJIT AdvSIMD
-  Job-KFSMLR : .NET 9.0.5 (9.0.525.21509), Arm64 RyuJIT AdvSIMD
-  Job-QIJDWO : .NET Framework 4.8.1 (4.8.9310.0), Arm64 RyuJIT
+  Job-FJQIHO : .NET 6.0.36 (6.0.3624.51421), Arm64 RyuJIT AdvSIMD
+  Job-SMUMBW : .NET 8.0.16 (8.0.1625.21506), Arm64 RyuJIT AdvSIMD
+  Job-FVOEEG : .NET 9.0.5 (9.0.525.21509), Arm64 RyuJIT AdvSIMD
+  Job-UINACK : .NET Framework 4.8.1 (4.8.9310.0), Arm64 RyuJIT
 
 
 ```
-| Method                 | Runtime              | Mean       | Error     | StdDev    | Ratio  | RatioSD |
-|----------------------- |--------------------- |-----------:|----------:|----------:|-------:|--------:|
-| DirectCall             | .NET 6.0             |   3.224 ns | 0.0421 ns | 0.0394 ns |   1.40 |    0.02 |
-| ActivatorCall          | .NET 6.0             | 208.589 ns | 0.8345 ns | 0.7397 ns |  90.76 |    1.22 |
-| ActivatorUtilitiesCall | .NET 6.0             | 318.512 ns | 0.5875 ns | 0.4906 ns | 138.60 |    1.82 |
-| DirectCall             | .NET 8.0             |   2.322 ns | 0.0232 ns | 0.0206 ns |   1.01 |    0.02 |
-| ActivatorCall          | .NET 8.0             | 105.028 ns | 0.3099 ns | 0.2588 ns |  45.70 |    0.60 |
-| ActivatorUtilitiesCall | .NET 8.0             |  56.050 ns | 0.2563 ns | 0.2397 ns |  24.39 |    0.33 |
-| DirectCall             | .NET 9.0             |   2.299 ns | 0.0335 ns | 0.0313 ns |   1.00 |    0.02 |
-| ActivatorCall          | .NET 9.0             | 111.138 ns | 0.4855 ns | 0.4304 ns |  48.36 |    0.66 |
-| ActivatorUtilitiesCall | .NET 9.0             |  49.473 ns | 0.1831 ns | 0.1712 ns |  21.53 |    0.29 |
-| DirectCall             | .NET Framework 4.7.2 |   2.985 ns | 0.0591 ns | 0.0524 ns |   1.30 |    0.03 |
-| ActivatorCall          | .NET Framework 4.7.2 | 330.970 ns | 2.1115 ns | 1.9751 ns | 144.02 |    2.05 |
-| ActivatorUtilitiesCall | .NET Framework 4.7.2 | 662.258 ns | 4.4902 ns | 4.2002 ns | 288.17 |    4.15 |
+| Method                 | Runtime              | Mean       | Error     | StdDev    | Ratio | RatioSD |
+|----------------------- |--------------------- |-----------:|----------:|----------:|------:|--------:|
+| DirectCall             | .NET 6.0             |   7.418 ns | 0.0888 ns | 0.0830 ns |  3.13 |    0.08 |
+| DirectCall             | .NET 8.0             |   3.677 ns | 0.0245 ns | 0.0205 ns |  1.55 |    0.03 |
+| DirectCall             | .NET 9.0             |   2.375 ns | 0.0581 ns | 0.0544 ns |  1.00 |    0.03 |
+| DirectCall             | .NET Framework 4.7.2 |   3.110 ns | 0.0463 ns | 0.0433 ns |  1.31 |    0.03 |
+|                        |                      |            |           |           |       |         |
+| ActivatorCall          | .NET 6.0             | 281.260 ns | 1.1601 ns | 0.9057 ns |  2.80 |    0.02 |
+| ActivatorCall          | .NET 8.0             | 104.227 ns | 0.5596 ns | 0.5234 ns |  1.04 |    0.01 |
+| ActivatorCall          | .NET 9.0             | 100.323 ns | 0.6399 ns | 0.5672 ns |  1.00 |    0.01 |
+| ActivatorCall          | .NET Framework 4.7.2 | 322.673 ns | 3.0736 ns | 2.8751 ns |  3.22 |    0.03 |
+|                        |                      |            |           |           |       |         |
+| ActivatorUtilitiesCall | .NET 6.0             | 411.976 ns | 2.7505 ns | 2.4382 ns |  8.11 |    0.07 |
+| ActivatorUtilitiesCall | .NET 8.0             |  52.300 ns | 0.3029 ns | 0.2834 ns |  1.03 |    0.01 |
+| ActivatorUtilitiesCall | .NET 9.0             |  50.792 ns | 0.3267 ns | 0.3056 ns |  1.00 |    0.01 |
+| ActivatorUtilitiesCall | .NET Framework 4.7.2 | 658.120 ns | 5.5035 ns | 5.1480 ns | 12.96 |    0.12 |
 
 ## Method Call
 

@@ -45,7 +45,7 @@ namespace ActivatorBenchmarks
             _serviceProvider = serviceCollection.BuildServiceProvider();
         }
 
-        [Benchmark( Baseline = true )]
+        [Benchmark]
         public EmptyPoco DirectCall()
         {
             return new EmptyPoco();
@@ -79,7 +79,7 @@ namespace ActivatorBenchmarks
             _serviceProvider = serviceCollection.BuildServiceProvider();
         }
 
-        [Benchmark( Baseline = true )]
+        [Benchmark]
         public SimplePoco DirectCall()
         {
             var dependency = new DependencyA();
@@ -152,7 +152,7 @@ namespace ActivatorBenchmarks
             _dependency = new DependencyA();
         }
 
-        [Benchmark( Baseline = true )]
+        [Benchmark]
         public SimplePoco DirectCall()
         {
             return new SimplePoco( _dependency );
